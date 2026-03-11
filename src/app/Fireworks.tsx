@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import styles from "./Fireworks.module.css";
 
 type FireworkPosition = {
-  x: number;
-  y: number;
+  x: number | string;
+  y: number | string;
   angle?: number;
   text?: string;
   url?: string;
@@ -62,19 +61,45 @@ export default function Fireworks({ active, positions = [] }: Props) {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext("2d")!;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    /* ---------------- CANVAS RESIZE ---------------- */
+
+    const resizeCanvas = () => {
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    /* ---------------- ROCKET LAUNCH ---------------- */
 
     const launchRocket = (p: FireworkPosition) => {
       const img = p.imageUrl ? new Image() : undefined;
-      if (img) img.src = p.imageUrl!;
+      if (img) img.src = p.imageUrl;
+
+      const x =
+        typeof p.x === "string"
+          ? (parseFloat(p.x) / 100) * canvas.clientWidth
+          : p.x;
+
+      const y =
+        typeof p.y === "string"
+          ? (parseFloat(p.y) / 100) * canvas.clientHeight
+          : p.y;
 
       rockets.current.push({
-        x: p.x,
-        y: p.y,
+        x,
+        y,
         vx: p.angle ? Math.cos(p.angle) * 3 : 0,
         vy: p.angle ? Math.sin(p.angle) * 3 : -3,
-        targetY: p.y - 250,
+        targetY: y - canvas.clientHeight * 0.25,
         burst: false,
         particles: [],
         text: p.text,
@@ -89,18 +114,16 @@ export default function Fireworks({ active, positions = [] }: Props) {
       });
     };
 
-    // if (active) {
-    //   launchSequence();
-    //   setInterval(launchSequence, 6000);
-    // }
-
     if (active && !hasLaunched.current) {
-  hasLaunched.current = true;
-  launchSequence();
-}
+      hasLaunched.current = true;
+      launchSequence();
+    }
+
+    /* ---------------- DRAW LOOP ---------------- */
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
       clickable.current = [];
       pointerEnabled.current = false;
 
@@ -132,8 +155,12 @@ export default function Fireworks({ active, positions = [] }: Props) {
 
           r.particles = r.particles.filter((p) => p.alpha > 0);
 
+          /* ---------- TEXT ---------- */
+
           if (r.text) {
-            ctx.font = "bold 24px Arial";
+            const fontSize = Math.max(canvas.clientWidth * 0.018, 16);
+            ctx.font = `bold ${fontSize}px Arial`;
+
             const w = ctx.measureText(r.text).width;
 
             ctx.fillStyle = "white";
@@ -142,17 +169,20 @@ export default function Fireworks({ active, positions = [] }: Props) {
             if (r.url) {
               clickable.current.push({
                 x: r.x - w / 2,
-                y: r.y - 24,
+                y: r.y - fontSize,
                 width: w,
-                height: 24,
+                height: fontSize,
                 url: r.url,
               });
+
               pointerEnabled.current = true;
             }
           }
 
+          /* ---------- IMAGE ---------- */
+
           if (r.image && r.image.complete) {
-            const s = 30;
+            const s = Math.max(canvas.clientWidth * 0.025, 24);
 
             ctx.drawImage(r.image, r.x - s / 2, r.y - s / 2, s, s);
 
@@ -164,16 +194,17 @@ export default function Fireworks({ active, positions = [] }: Props) {
                 height: s,
                 url: r.url,
               });
+
               pointerEnabled.current = true;
             }
           }
         }
       });
 
-     rockets.current = rockets.current.filter((r) => {
-  if (r.text || r.image) return true; // keep rockets with text/icons
-  return !r.burst || r.particles.length;
-});
+      rockets.current = rockets.current.filter((r) => {
+        if (r.text || r.image) return true;
+        return !r.burst || r.particles.length;
+      });
 
       canvas.style.pointerEvents = pointerEnabled.current ? "auto" : "none";
 
@@ -182,8 +213,11 @@ export default function Fireworks({ active, positions = [] }: Props) {
 
     draw();
 
+    /* ---------------- CLICK HANDLER ---------------- */
+
     const click = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
+
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
@@ -200,13 +234,16 @@ export default function Fireworks({ active, positions = [] }: Props) {
 
     canvas.addEventListener("click", click);
 
-    return () => canvas.removeEventListener("click", click);
+    return () => {
+      canvas.removeEventListener("click", click);
+      window.removeEventListener("resize", resizeCanvas);
+    };
   }, [active, positions]);
 
   return (
     <canvas
       ref={canvasRef}
-     className="absolute top-0 left-0 w-full h-full"
+      className="absolute top-0 left-0 w-full h-full"
     />
   );
 }
