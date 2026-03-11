@@ -1,340 +1,3 @@
-// 'use client';
-
-// import React, { useState } from 'react';
-// import { easeOut, motion } from 'framer-motion';
-// import styles from './banner.module.css';
-// import FishTraceHello from './FishTraceHello';
-// import { GlassJar } from './GlassJar';
-
-// const curtainVariants = {
-//   initial: { y: 0 },
-//   animate: {
-//     y: '-80%',
-//     transition: {
-//       duration: 1.5,
-//       ease: easeOut,
-//     },
-//   },
-// };
-
-// const sandVariants = {
-//   initial: { y: 100 },
-//   animate: {
-//     y: 0,
-//     transition: {
-//       duration: 1.5,
-//       ease: easeOut,
-//     },
-//   },
-// };
-
-// const containerVariants = {
-//   hidden: {},
-//   show: {
-//     transition: {
-//       staggerChildren: 0.2,
-//     },
-//   },
-// };
-
-// const itemVariants = {
-//   hidden: { x: -100, opacity: 0 },
-//   show: {
-//     x: 0,
-//     opacity: 1,
-//     transition: {
-//       duration: 0.5,
-//       ease: easeOut,
-//     },
-//   },
-// };
-
-// function Banner() {
-//   const [curtainComplete, setCurtainComplete] = useState(false);
-//   const [progress, setProgress] = useState(0);
-
-//   return (
-//     <div className="relative min-h-screen bg-[#00BFFF] overflow-hidden flex items-center justify-center">
-//       {/* Curtain */}
-//       <motion.div
-//         className="absolute top-0 left-0 w-full h-full bg-[#004687] z-50 [clip-path:url(#fabric-wave-clip)]"
-//         variants={curtainVariants}
-//         initial="initial"
-//         animate="animate"
-//         onAnimationComplete={() => setCurtainComplete(true)}
-//       >
-//         <svg width="0" height="0">
-//           <defs>
-//             <clipPath id="fabric-wave-clip" clipPathUnits="objectBoundingBox">
-//               <path
-//                 d="
-//                   M 0,0 
-//                   L 0,0.9 
-//                   Q 0.05,1 0.1,0.9
-//                   Q 0.15,0.8 0.2,0.9
-//                   Q 0.25,1 0.3,0.9
-//                   Q 0.35,0.8 0.4,0.9
-//                   Q 0.45,1 0.5,0.9
-//                   Q 0.55,0.8 0.6,0.9
-//                   Q 0.65,1 0.7,0.9
-//                   Q 0.75,0.8 0.8,0.9
-//                   Q 0.85,1 0.9,0.9
-//                   Q 0.95,0.8 1,0.9
-//                   L 1,0 
-//                   Z
-//                 "
-//               />
-//             </clipPath>
-//           </defs>
-//         </svg>
-//       </motion.div>
-
-//       {/* Beach Sand */}
-//       <motion.div 
-//         className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-amber-200 to-amber-100 z-10"
-//         variants={sandVariants}
-//         initial="initial"
-//         animate="animate"
-//       >
-//         {/* Sand texture */}
-//         <div className="absolute inset-0 overflow-hidden">
-//           {[...Array(30)].map((_, i) => (
-//             <div 
-//               key={i}
-//               className="absolute bg-amber-300/40 rounded-full"
-//               style={{
-//                 width: `${Math.random() * 12 + 3}px`,
-//                 height: `${Math.random() * 12 + 3}px`,
-//                 left: `${Math.random() * 100}%`,
-//                 top: `${Math.random() * 100}%`,
-//               }}
-//             />
-//           ))}
-//         </div>
-        
-//         {/* Wave line */}
-//         <div className="absolute top-0 left-0 w-full h-3 bg-amber-300/50 [clip-path:url(#sand-wave-clip)]">
-//           <svg width="0" height="0">
-//             <defs>
-//               <clipPath id="sand-wave-clip" clipPathUnits="objectBoundingBox">
-//                 <path d="M0,0.5 C0.2,0.7 0.4,0.3 0.6,0.5 S0.8,0.3 1,0.5 V1 H0 Z" />
-//               </clipPath>
-//             </defs>
-//           </svg>
-//         </div>
-//       </motion.div>
-
-//       {/* Left Animated Clam with Pearl */}
-//       {curtainComplete && (
-//         <motion.div 
-//           className="absolute bottom-24 left-1/4 z-20"
-//           initial={{ y: 20, rotate: -10 }}
-//           animate={{ 
-//             rotate: [-10, -5, -10],
-//           }}
-//           transition={{
-//             duration: 4,
-//             repeat: Infinity,
-//             repeatType: 'mirror',
-//             ease: 'easeInOut'
-//           }}
-//         >
-//           <div className="relative w-16 h-10">
-//             {/* Pearl */}
-//             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-3 h-3 bg-white rounded-full shadow-md" />
-            
-//             {/* Shell Bottom */}
-//             <svg viewBox="0 0 100 50" className="absolute bottom-0 left-0 w-full h-full">
-//               <path
-//                 d="M10,25 Q50,0 90,25 Q50,50 10,25 Z"
-//                 fill="rgba(255,240,220,0.9)"
-//                 stroke="rgba(200,180,160,0.8)"
-//                 strokeWidth="1"
-//               />
-//             </svg>
-            
-//             {/* Shell Top - Animated */}
-//             <motion.svg 
-//               viewBox="0 0 100 50" 
-//               className="absolute bottom-0 left-0 w-full h-full"
-//               animate={{
-//                 rotateX: [0, 60, 0],
-//               }}
-//               transition={{
-//                 duration: 4,
-//                 repeat: Infinity,
-//                 repeatType: 'mirror',
-//                 ease: 'anticipate'
-//               }}
-//               style={{ originY: '0px', transformStyle: 'preserve-3d' }}
-//             >
-//               <path
-//                 d="M10,25 Q50,0 90,25 Q50,50 10,25 Z"
-//                 fill="rgba(255,245,230,0.9)"
-//                 stroke="rgba(200,180,160,0.8)"
-//                 strokeWidth="1"
-//               />
-//             </motion.svg>
-//           </div>
-
-//           {/* Bubbles when clam opens */}
-//           <motion.div 
-//             className="absolute -top-4 left-6 w-3 h-3 bg-white/50 rounded-full blur-sm z-30"
-//             animate={{ 
-//               scale: [0, 1.2, 0],
-//               opacity: [0, 0.7, 0]
-//             }}
-//             transition={{
-//               duration: 4,
-//               repeat: Infinity,
-//               delay: 2,
-//               ease: 'easeOut'
-//             }}
-//           />
-//         </motion.div>
-//       )}
-
-//       {/* Right Animated Clam with Pearl */}
-//       {curtainComplete && (
-//         <motion.div 
-//           className="absolute bottom-10 right-1/4 z-20"
-//           initial={{ y: 20, rotate: 10 }}
-//           animate={{ 
-//             rotate: [10, 5, 10],
-//           }}
-//           transition={{
-//             duration: 4,
-//             repeat: Infinity,
-//             repeatType: 'mirror',
-//             ease: 'easeInOut',
-//             delay: 1 // Slight delay for variety
-//           }}
-//         >
-//           <div className="relative w-16 h-10">
-//             {/* Pearl */}
-//             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-3 h-3 bg-white rounded-full shadow-md" />
-            
-//             {/* Shell Bottom */}
-//             <svg viewBox="0 0 100 50" className="absolute bottom-0 left-0 w-full h-full">
-//               <path
-//                 d="M10,25 Q50,0 90,25 Q50,50 10,25 Z"
-//                 fill="rgba(255,240,220,0.9)"
-//                 stroke="rgba(200,180,160,0.8)"
-//                 strokeWidth="1"
-//               />
-//             </svg>
-            
-//             {/* Shell Top - Animated */}
-//             <motion.svg 
-//               viewBox="0 0 100 50" 
-//               className="absolute bottom-0 left-0 w-full h-full"
-//               animate={{
-//                 rotateX: [0, 60, 0],
-//               }}
-//               transition={{
-//                 duration: 4,
-//                 repeat: Infinity,
-//                 repeatType: 'mirror',
-//                 ease: 'anticipate',
-//                 delay: 0.5
-//               }}
-//               style={{ originY: '0px', transformStyle: 'preserve-3d' }}
-//             >
-//               <path
-//                 d="M10,25 Q50,0 90,25 Q50,50 10,25 Z"
-//                 fill="rgba(255,245,230,0.9)"
-//                 stroke="rgba(200,180,160,0.8)"
-//                 strokeWidth="1"
-//               />
-//             </motion.svg>
-//           </div>
-
-//           {/* Bubbles when clam opens */}
-//           <motion.div 
-//             className="absolute -top-4 left-6 w-3 h-3 bg-white/50 rounded-full blur-sm z-30"
-//             animate={{ 
-//               scale: [0, 1.2, 0],
-//               opacity: [0, 0.7, 0]
-//             }}
-//             transition={{
-//               duration: 4,
-//               repeat: Infinity,
-//               delay: 2.5,
-//               ease: 'easeOut'
-//             }}
-//           />
-//         </motion.div>
-//       )}
-
-//       {/* Banner Content */}
-//       {curtainComplete && (
-//         <motion.div
-//           className="flex justify-between w-full px-8 z-20"
-//           variants={containerVariants}
-//           initial="hidden"
-//           animate="show"
-//         >
-//           {/* Left Side Text */}
-//           <div className="flex flex-col gap-4 items-start grow-4">
-//             {['Hello', 'Contact us', 'Projects'].map((text) => (
-//               <motion.div
-//                 key={text}
-//                 variants={itemVariants}
-//                 className={`bg-black px-6 py-3 w-full max-w-[200px] ${styles.choppedBox}`}
-//               >
-//                 <p className={`text-white text-lg ${styles.bungee}`}>{text}</p>
-//               </motion.div>
-//             ))}
-//           </div>
-
-//           {/* Right Side Name */}
-//           <div className="grow-2 flex items-center justify-center">
-//             <FishTraceHello onProgressUpdate={setProgress}/>
-//           </div>
-//         </motion.div>
-//       )}
-
-//       {/* Glass Jar */}
-//       <GlassJar show={progress >= 1} />
-
-//       {/* Splash Effects */}
-//       <motion.div
-//         className="absolute bottom-32 right-12 w-10 h-10 rounded-full bg-white/30 blur-md z-30"
-//         initial={{ scale: 0, opacity: 0 }}
-//         animate={{
-//           scale: [0, 1.5, 0],
-//           opacity: [0, 0.5, 0],
-//         }}
-//         transition={{
-//           duration: 2,
-//           repeat: Infinity,
-//           repeatDelay: 1.5,
-//           ease: 'easeOut',
-//         }}
-//       />
-//       <motion.div
-//         className="absolute bottom-32 left-16 w-8 h-8 rounded-full bg-white/20 blur-md z-30"
-//         initial={{ scale: 0, opacity: 0 }}
-//         animate={{
-//           scale: [0, 1.2, 0],
-//           opacity: [0, 0.4, 0],
-//         }}
-//         transition={{
-//           duration: 2,
-//           repeat: Infinity,
-//           repeatDelay: 2,
-//           ease: 'easeOut',
-//           delay: 0.5
-//         }}
-//       />
-//     </div>
-//   );
-// }
-
-// export default Banner;
-
-
-
 'use client';
 
 import React, { useState } from 'react';
@@ -428,7 +91,7 @@ function Banner() {
 
       {/* Beach Sand */}
       <motion.div 
-        className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-amber-200 to-amber-100 z-10"
+        className="absolute bottom-0 left-0 w-full h-24 sm:h-28 md:h-32 bg-gradient-to-t from-amber-200 to-amber-100 z-10"
         variants={sandVariants}
         initial="initial"
         animate="animate"
@@ -464,7 +127,7 @@ function Banner() {
       {/* Left Animated Clam with Pearl */}
 {curtainComplete && (
         <motion.div 
-          className="absolute bottom-24 left-1/4 z-20"
+          className="absolute bottom-24 left-[10%] md:left-1/4 z-20"
           initial={{ y: 20, rotate: -10 }}
           animate={{ 
             rotate: [-10, -5, -10],
@@ -476,7 +139,7 @@ function Banner() {
             ease: 'easeInOut'
           }}
         >
-          <div className="relative w-20 h-12">
+          <div className="relative w-14 h-8 sm:w-16 sm:h-10 md:w-20 md:h-12">
             {/* Pearl with shine */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-4 h-4 bg-gradient-to-br from-white to-gray-100 rounded-full shadow-lg">
               <div className="absolute top-1 left-1 w-1 h-1 bg-white/80 rounded-full" />
@@ -602,7 +265,7 @@ function Banner() {
       {/* Right Animated Clam with Pearl */}
   {curtainComplete && (
         <motion.div 
-          className="absolute bottom-10 right-1/4 z-20"
+          className="absolute bottom-10 right-[10%] md:right-1/4 z-20"
           initial={{ y: 20, rotate: 10 }}
           animate={{ 
             rotate: [10, 5, 10],
@@ -615,7 +278,7 @@ function Banner() {
             delay: 1
           }}
         >
-          <div className="relative w-20 h-12">
+          <div className="relative w-14 h-8 sm:w-16 sm:h-10 md:w-20 md:h-12">
             {/* Pearl with shine */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-4 h-4 bg-gradient-to-br from-white to-pink-100 rounded-full shadow-lg">
               <div className="absolute top-1 left-1 w-1 h-1 bg-white/80 rounded-full" />
@@ -746,26 +409,26 @@ function Banner() {
       {/* Banner Content */}
       {curtainComplete && (
         <motion.div
-          className="flex justify-between w-full px-8 z-20"
+          className="flex flex-col md:flex-row justify-between w-full px-6 md:px-12 z-20 gap-10 md:gap-0"
           variants={containerVariants}
           initial="hidden"
           animate="show"
         >
           {/* Left Side Text */}
-          <div className="flex flex-col gap-4 items-start grow-4">
+          <div className="flex flex-col gap-4 items-center md:items-start text-center md:text-left grow-4">
             {['Hello', 'Contact us', 'Projects'].map((text) => (
               <motion.div
                 key={text}
                 variants={itemVariants}
-                className={`bg-black px-6 py-3 w-full max-w-[200px] ${styles.choppedBox}`}
+                className={`bg-black px-5 sm:px-6 py-2 sm:py-3 w-full max-w-[180px] sm:max-w-[200px] ${styles.choppedBox}`}
               >
-                <p className={`text-white text-lg ${styles.bungee}`}>{text}</p>
+                <p className={`text-white text-lg whitespace-nowrap ${styles.bungee}`}>{text}</p>
               </motion.div>
             ))}
           </div>
 
           {/* Right Side Name */}
-          <div className="grow-2 flex items-center justify-center">
+          <div className="w-full max-w-[90vw] md:max-w-none flex items-center justify-center">
             <FishTraceHello onProgressUpdate={setProgress}/>
           </div>
         </motion.div>
