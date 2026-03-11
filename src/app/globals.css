@@ -24,3 +24,42 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+.perspective {
+  perspective: 800px;
+  -webkit-perspective: 800px;
+}
+@keyframes waveMotion1 {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes waveMotion2 {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes waveMotion3 {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes waveMotion4 {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-wave1 {
+  animation: waveMotion1 14s linear infinite;
+}
+.animate-wave2 {
+  animation: waveMotion2 10s linear infinite;
+}
+.animate-wave3 {
+  animation: waveMotion3 8s linear infinite;
+}
+.animate-wave4 {
+  animation: waveMotion4 6s linear infinite;
+}
+
+

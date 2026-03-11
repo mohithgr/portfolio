@@ -1,0 +1,136 @@
+// 'use client';
+
+// import { motion } from 'framer-motion';
+// import React, { useMemo } from 'react';
+
+// interface PebbleProps {
+//   label: string;
+//   index: number;
+//   total: number;
+//   delay: number;
+//   isOpen: boolean;
+// }
+
+// const Pebble = ({ label, index, total, delay, isOpen }: PebbleProps) => {
+//   const { x, y, scale, jitter } = useMemo(() => {
+//     const spacing = 1000; // total horizontal space
+//     const start = -spacing / 2;
+//     const step = spacing / (total - 1); // even step between pebbles
+
+//     const x = start + step * index;
+//     const jitter = Math.random() * 20 - 10; // subtle x offset
+//     const y = -250 - Math.random() * 100; // random upward arc
+//     const scale = Math.random() * 0.4 + 0.9;
+
+//     return { x, y, scale, jitter };
+//   }, [index, total]);
+
+//   return (
+//     <motion.div
+//       initial={false}
+//       animate={{
+//         x: isOpen ? x + jitter : 0,
+//         y: isOpen ? y : 0,
+//         opacity: isOpen ? 1 : 0,
+//         scale: scale,
+//       }}
+//       transition={{
+//         duration: 1.2,
+//         delay,
+//         ease: 'easeOut',
+//       }}
+//       className="absolute bottom-16 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md px-3 py-1 text-xs font-semibold text-black whitespace-nowrap pointer-events-none"
+//     >
+//       {label}
+//     </motion.div>
+//   );
+// };
+
+// export default Pebble;
+
+
+
+
+
+// 'use client';
+
+// import { motion } from 'framer-motion';
+// import React from 'react';
+
+// interface PebbleProps {
+//   label: string;
+//   delay: number;
+//   isOpen: boolean;
+//   x: string;
+//   y: string;
+//   scale?: number;
+// }
+
+// const Pebble = ({ label, delay, isOpen, x, y, scale = 1 }: PebbleProps) => {
+//   return (
+//     <motion.div
+//       initial={false}
+//       animate={{
+//         x: isOpen ? x : 0,
+//         y: isOpen ? y : 0,
+//         opacity: isOpen ? 1 : 0,
+//         scale,
+//       }}
+//       transition={{
+//         duration: 1.2,
+//         delay,
+//         ease: 'easeOut',
+//       }}
+//       className="absolute bottom-16 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md px-3 py-1 text-xs font-semibold text-black whitespace-nowrap pointer-events-none"
+//     >
+//       {label}
+//     </motion.div>
+//   );
+// };
+
+// export default Pebble;
+
+
+
+'use client';
+
+import { motion } from 'framer-motion';
+import React from 'react';
+
+interface PebbleProps {
+  label: string;
+  delay: number;
+  isOpen: boolean;
+  x: string;
+  y: string;
+  scale?: number;
+}
+
+const Pebble = ({ label, delay, isOpen, x, y, scale = 1 }: PebbleProps) => {
+  return (
+    <motion.div
+      initial={{
+        x: 0,
+        y: 0,
+        opacity: 0,
+        scale: 0.5,
+      }}
+      animate={{
+        x: isOpen ? x : 0,
+        y: isOpen ? y : 0,
+        opacity: isOpen ? 1 : 0,
+        scale: isOpen ? scale : 0.5,
+      }}
+      transition={{
+        duration: 1.2,
+        delay: isOpen ? delay : 0,
+        ease: 'easeOut',
+      }}
+      className="absolute bottom-16 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md px-3 py-1 text-xs font-semibold text-black whitespace-nowrap pointer-events-none"
+    >
+      {label}
+    </motion.div>
+  );
+};
+
+export default Pebble;

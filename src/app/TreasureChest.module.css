@@ -1,0 +1,483 @@
+/* components/TreasureChest.module.css */
+
+/* Define CSS Variables for easy modification */
+:root {
+  --cube-length: 10rem;
+  --panel-height: 5rem;
+  --brown: #D58757;
+  --bg-img: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/wood.jpeg');
+}
+
+/* Base Styles */
+.treasureChestPositioner,
+.treasureChest {
+  width: var(--cube-length);
+  height: var(--cube-length);
+}
+
+.treasureChest,
+.lid,
+.lidPanels,
+.chest,
+.frontPanel,
+.leftPanel,
+.rightPanel,
+.backPanel {
+  transform-style: preserve-3d;
+}
+
+/* Treasure Chest Base */
+.treasureChest {
+  transform: translateZ(calc(var(--cube-length) / -2)) rotateX(350deg) rotateY(330deg); /* Initial fixed rotation as per original values */
+}
+
+/* Lid Styles */
+.lid {
+  transform-origin: 100% 45% -2.5rem; /* Original SCSS value */
+}
+
+#toggle-treasure:checked + .treasureChestPositioner .lid {
+  transform: rotateX(110deg);
+}
+
+.lidPanels {
+  width: calc(var(--cube-length) - 0.2rem);
+  height: calc(var(--cube-length) / 3);
+  transform: translateX(0.1rem);
+}
+
+.panel {
+  background-color: var(--brown);
+  height: 66%;
+  width: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  background-image: var(--bg-img), linear-gradient(to left, rgba(black, 0.5) 0.9rem, transparent 1.25rem), linear-gradient(to right, rgba(black, 0.5) 0.9rem, transparent 1.45rem);
+  backface-visibility: hidden;
+  background-blend-mode: color-burn;
+}
+
+.panel::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateX(180deg);
+  background-image: none; /* Reset background image */
+  background-color: color-mix(in srgb, var(--brown) 40%, black); /* Equivalent to mix($brown, black, 40%) */
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  border: 1px solid black;
+  background-image: linear-gradient(to bottom, transparent 49%, black 49%, black 51%, transparent 51%);
+}
+
+/* Specific Panel Transforms - these are critical for the 3D shape */
+.panel#panel-0 {
+  transform: translateZ(calc(var(--cube-length) / 3.5)) translateY(calc(var(--cube-length) / -25));
+}
+.panel#panel-1 {
+  transform: translateZ(calc(var(--cube-length) / 1.53)) rotateX(45deg) translateY(calc(var(--cube-length) / -1.58));
+}
+.panel#panel-2 {
+  transform: translateZ(calc(var(--cube-length) / 50)) translateY(calc(var(--cube-length) / -1.35)) rotateX(90deg);
+}
+.panel#panel-3 {
+  transform: translateZ(calc(var(--cube-length) * -1.05)) rotateX(135deg) translateY(calc(var(--cube-length) * 1.255));
+}
+.panel#panel-4 {
+  transform: translateZ(calc(var(--cube-length) / -4.1)) rotateX(180deg) translateY(calc(var(--cube-length) / 1.09));
+}
+
+.panel .board {
+  box-shadow: 0 0 0 1px black inset;
+  height: 50%;
+  width: 100%;
+}
+
+.ironBand {
+  width: 1.1rem;
+  height: 100%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  position: absolute;
+  top: 0;
+  background-color: gray;
+  background-image: linear-gradient(to bottom, rgba(white, 0.6) 0%, transparent 15%, darkgray 20%, transparent 25%, transparent 85%, rgba(white, 0.4));
+  transform-style: preserve-3d;
+  transform: translateZ(1px);
+}
+
+/* Lid Side Panels */
+.lidSide {
+  width: calc(var(--panel-height) * 1.07);
+  height: calc(var(--panel-height) * 3 / 4);
+  position: absolute;
+  clip-path: polygon(30% 0%, 69% 0, 100% 45%, 100% 100%, 0 100%, 0 45%);
+}
+
+.lidLeft {
+  transform: rotateY(90deg) translateX(-0.1rem) translateY(-2rem) translateZ(calc(var(--cube-length) / -4.25));
+}
+
+.lidRight {
+  transform: rotateY(90deg) translateX(-0.2rem) translateY(-5.3rem) translateZ(calc(var(--cube-length) / 1.38));
+}
+
+.sidePanel {
+  width: calc(var(--panel-height) * 1.05);
+  height: calc(var(--panel-height) * 0.45);
+  position: absolute;
+  background-color: var(--brown);
+  background-image: var(--bg-img);
+  background-blend-mode: multiply;
+  box-shadow: 0 0 0 1px black;
+  bottom: 0;
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+
+.sidePanel::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0.75rem;
+  height: 100%;
+  background: gray;
+  transform-style: preserve-3d;
+}
+
+/* Specific Side Panel Transforms */
+.sidePanel:first-child {
+  transform: rotateZ(43deg) translateY(2.1rem);
+  z-index: 3;
+}
+.sidePanel:first-child::after {
+  transform: rotate(-45deg) translateX(0.75rem);
+  top: 0;
+  left: 0;
+  border-right: 1px solid rgba(black, 0.4);
+}
+.sidePanel:nth-child(2){
+  transform: rotateZ(75deg) translateY(1.65rem) translateX(-1.2rem);
+  z-index: 2;
+}
+.sidePanel:nth-child(2)::after {
+  left: 1.4rem;
+  top: -0.5rem;
+  transform: rotate(-38deg);
+  border-right: 1px solid rgba(black, 0.4);
+}
+.sidePanel:nth-child(3){
+  transform: rotateZ(90deg);
+  z-index: 1;
+}
+.sidePanel:nth-child(3)::after {
+  border-right: 1px solid rgba(black, 0.4);
+}
+.sidePanel:nth-child(4){
+  transform: rotateZ(105deg) translateY(-1.3rem) translateX(-0.5rem);
+  z-index: 2;
+}
+.sidePanel:nth-child(4)::after {
+  left: 0.75rem;
+  top: 0.5rem;
+  transform: rotate(30deg);
+  border-right: 1px solid rgba(black, 0.4);
+}
+.sidePanel:last-child {
+  transform: rotateZ(137deg) translateY(-2rem);
+  z-index: 3;
+}
+.sidePanel:last-child::after {
+  left: 0.55rem;
+  top: 0.5rem;
+  transform: rotate(43deg) translateZ(1rem);
+  border-right: 1px solid rgba(black, 0.4);
+}
+
+/* Chest Body Panels */
+.chest {
+  height: calc(var(--cube-length) / 3);
+}
+
+.chestPanel {
+  position: absolute;
+}
+
+.frontBackPanel {
+  width: calc(var(--cube-length) / 1.01);
+  height: calc(var(--cube-length) / 2.5);
+}
+
+.leftRightPanel {
+  width: calc(var(--cube-length) / 1.85);
+  height: calc(var(--cube-length) / 2.5);
+}
+
+.sideChestPanel {
+  height: 25%;
+  width: 100%;
+  background-color: var(--brown);
+  background-image: var(--bg-img);
+  border-bottom: 1px solid black;
+  position: relative;
+}
+
+.sideChestPanel::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(white, 0.3) 1px, transparent 1px), linear-gradient(to top, rgba(black, 0.3) 1px, transparent 1px), linear-gradient(to right, rgba(black, 0.5) 9%, transparent 11%, transparent 88%, rgba(black, 0.6) 91%);
+}
+
+.sideChestPanel:nth-last-child(2)::before {
+  background-image: linear-gradient(to top, rgba(black, 0.3) 1px, transparent 1px), linear-gradient(to right, rgba(black, 0.2) 9%, transparent 11%, transparent 89%, rgba(black, 0.2) 91%), linear-gradient(to top, rgba(black, 0.5) 80%, transparent 95%), linear-gradient(to bottom, rgba(white, 0.3) 1px, transparent 1px);
+}
+
+.frontBackPanel .sideChestPanel {
+  background-blend-mode: color-burn;
+}
+.leftRightPanel .sideChestPanel {
+  background-blend-mode: multiply;
+}
+
+/* Specific Chest Panel Transforms */
+#front-panel {
+  transform: translateZ(2.75rem) translateY(1.8rem) translateX(0.1rem);
+}
+
+#left-panel {
+  transform: rotateY(90deg) translateZ(-2.4rem) translateY(1.8rem) translateX(-0.2rem);
+}
+
+#bottom-panel {
+  width: calc(var(--cube-length) / 1.01);
+  height: calc(var(--cube-length) / 1.8);
+  transform: rotateX(-90deg) translateZ(3.1rem) translateX(0.1rem) translateY(-0.1rem);
+}
+#bottom-panel .sideChestPanel::before {
+  background-image: none;
+}
+
+#right-panel {
+  transform: rotateY(90deg) translateZ(7.2rem) translateY(1.8rem) translateX(-0.2rem);
+}
+
+#back-panel {
+  transform: translateZ(-2.5rem) translateY(1.8rem) translateX(0.1rem);
+}
+
+/* Iron Bars */
+.ironBars {
+  transform-style: preserve-3d;
+  transform: translateY(-0.75rem) translateZ(1rem);
+  position: relative;
+}
+
+.ironBar {
+  background: gray;
+  position: absolute;
+  transform: translateZ(-0.9rem);
+  display: flex;
+  transform-style: preserve-3d;
+}
+
+.ironBar.short {
+  width: 0.9rem;
+  height: calc(var(--cube-length) / 2.35);
+  box-shadow: -1px 0 0 0 rgba(black, 0.5) inset;
+  padding: 0.1rem 0;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.ironBar.short.middleBar {
+  left: 50%;
+  margin-left: -0.45rem; /* half of 0.9rem */
+}
+
+.ironBar.short.rightBar {
+  box-shadow: 1px 0 0 0 rgba(black, 0.5) inset;
+}
+
+.ironBar.short .circleCont {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ironBar.long {
+  height: 0.9rem;
+  width: 100%;
+  justify-content: space-around;
+  padding: 0 1.1rem;
+}
+
+.ironBar.long.topBar {
+  transform: translateZ(-1rem) translateY(calc(var(--cube-length) / -2.9));
+}
+
+.ironBar.long .circleCont {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Specific Iron Bar Transforms for each panel */
+#front-panel .ironBar.short {
+  transform: translateZ(-0.9rem) translateY(calc(var(--cube-length) / -2.9)) translateX(0.1rem);
+}
+#front-panel .ironBar.short:last-child {
+  transform: translateZ(-1rem) translateY(calc(var(--cube-length) / -2.75)) translateX(calc(var(--cube-length) / 1.125));
+}
+
+#back-panel .ironBar.short {
+  transform: translateZ(-1.05rem) translateY(calc(var(--cube-length) / -2.9));
+}
+#back-panel .ironBar.short:last-child {
+  transform: translateZ(-1.05rem) translateY(calc(var(--cube-length) / -2.75)) translateX(calc(var(--cube-length) / 1.125));
+}
+
+#right-panel .ironBar.long {
+  transform: translateZ(-1.1rem) translateY(0);
+}
+#right-panel .ironBar.long.topBar {
+  transform: translateZ(-1.1rem) translateY(calc(var(--cube-length) / -2.75));
+}
+#right-panel .ironBar.short {
+  transform: translateZ(-1.1rem) translateY(calc(var(--cube-length) / -2.8));
+  box-shadow: 1px 0 0 0 rgba(black, 0.5) inset;
+}
+#right-panel .ironBar.short:last-child {
+  transform: translateZ(-1.1rem) translateY(calc(var(--cube-length) / -2.8)) translateX(calc(var(--cube-length) / 2.2));
+}
+
+#left-panel .ironBar.long {
+  transform: translateZ(-1.1rem) translateY(0);
+}
+#left-panel .ironBar.long.topBar {
+  transform: translateZ(-1.05rem) translateY(calc(var(--cube-length) / -2.75));
+}
+#left-panel .ironBar.short {
+  transform: translateZ(-1.15rem) translateY(calc(var(--cube-length) / -2.8));
+  box-shadow: 1px 0 0 0 rgba(black, 0.5) inset;
+}
+#left-panel .ironBar.short:last-child {
+  transform: translateZ(-1.15rem) translateY(calc(var(--cube-length) / -2.8)) translateX(calc(var(--cube-length) / 2.2));
+}
+
+#left-panel .ironBar.long .circleCont {
+  transform: translateY(-50%) rotateX(180deg) rotateZ(180deg);
+}
+#left-panel .ironBar.short .circleCont {
+  transform: translateX(-50%) rotateX(180deg) rotateZ(180deg);
+}
+#back-panel .ironBar.long .circleCont {
+  transform: translateY(-50%) rotateX(180deg) rotateZ(180deg);
+}
+#back-panel .ironBar.short .circleCont {
+  transform: translateX(-50%) rotateX(180deg) rotateZ(180deg);
+}
+
+.circleCont {
+  width: 0.8rem;
+  height: 0.8rem;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* Circles - complex scaling and depth */
+.circle {
+  background-color: gray;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -0.325rem 0 0 -0.325rem;
+  background-image: radial-gradient(circle at 30% 30%, white 5%, transparent 35%), radial-gradient(circle at center, transparent 50%, rgba(black, 0.65) 80%);
+  backface-visibility: hidden;
+}
+
+/* Dynamic circle sizing and depth based on nth-child */
+.circle:nth-child(2){ transform: translateZ(1px); }
+.circle:nth-child(3){ transform: translateZ(1.5px); }
+.circle:nth-child(4){ transform: translateZ(2px); }
+.circle:nth-child(5){ transform: translateZ(2.5px); }
+.circle:nth-child(6){ transform: translateZ(3px); }
+.circle:nth-child(7){ transform: translateZ(3.5px); }
+.circle:nth-child(8){ transform: translateZ(4px); }
+.circle:nth-child(9){ transform: translateZ(4.5px); }
+
+.circle:nth-child(1),
+.circle:nth-child(2),
+.circle:nth-child(3),
+.circle:nth-child(4) {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+.circle:nth-child(5){
+  width: 0.6rem;
+  height: 0.6rem;
+  background-image: radial-gradient(circle at 30% 30%, white 5%, transparent 35%), radial-gradient(circle at center, transparent 50%, rgba(black, 0.5) 80%);
+  margin: -0.3rem 0 0 -0.3rem;
+}
+.circle:nth-child(6){
+  width: 0.5rem;
+  height: 0.5rem;
+  background-image: radial-gradient(circle at 30% 30%, white 5%, transparent 35%), radial-gradient(circle at center, transparent 50%, rgba(black, 0.3) 80%);
+  margin: -0.25rem 0 0 -0.25rem;
+}
+.circle:nth-child(7){
+  width: 0.4rem;
+  height: 0.4rem;
+  background-image: radial-gradient(circle at 30% 30%, white 5%, transparent 35%), radial-gradient(circle at center, transparent 50%, rgba(black, 0.3) 80%);
+  margin: -0.2rem 0 0 -0.2rem;
+}
+.circle:nth-child(8){
+  width: 0.2rem;
+  height: 0.2rem;
+  background-image: radial-gradient(circle at 30% 30%, white 5%, transparent 35%), radial-gradient(circle at center, transparent 50%, rgba(black, 0.3) 80%);
+  margin: -0.1rem 0 0 -0.1rem;
+}
+
+
+/* Lock */
+.lock {
+  width: 2rem;
+  height: 1.5rem;
+  background: gray;
+  top: 50%;
+  left: 50%;
+  margin: -0.75rem 0 0 -1.05rem;
+  position: absolute;
+  box-shadow: 0 0 1px 1px rgba(black, 0.3) inset;
+}
+
+.keyhole {
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-bottom: 10px solid black;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  margin: -4px 0 0 -5px;
+  width: 0.55em;
+}
+
+.keyhole::after {
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  background-color: black;
+  top: -4px;
+  left: -3px;
+}

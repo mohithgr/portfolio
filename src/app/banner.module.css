@@ -1,0 +1,17 @@
+/* styles/banner.module.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+.bungee {
+  font-family: 'Bungee', sans-serif;
+}
+.choppedBox {
+  clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+}
+
+
+@media (min-width: 768px) {
+  .choppedBox {
+    clip-path: polygon(0 0, 100% 0, 93% 100%, 0% 100%);
+  }
+}
