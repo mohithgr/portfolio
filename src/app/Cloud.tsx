@@ -32,23 +32,23 @@ export default function CloudReveal() {
 
 
 
-const boatX = useSpring(
-  useTransform(scrollYProgress, [0.6, 0.85], ["-130vh", "0vh"]),
-  {
-    stiffness: 50,
-    damping: 20,
-  }
-);
+  const boatX = useSpring(
+    useTransform(scrollYProgress, [0.6, 0.85], ["-130vh", "0vh"]),
+    {
+      stiffness: 50,
+      damping: 20,
+    }
+  );
 
   return (
     <section ref={containerRef} className="relative h-[800vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-gradient-to-b from-white to-[#f7f7f7] flex justify-center">
         {/* Rainbow */}
-        <motion.svg
-          viewBox="-5 0 110 60"
-          preserveAspectRatio="none"
-          className="absolute -top-[8vh] left-1/2 -translate-x-1/2 w-full h-[50vh] z-0 pointer-events-none"
-        >
+       <motion.svg
+  viewBox="-5 0 110 60"
+  preserveAspectRatio="none"
+  className="absolute -top-[8vh] left-1/2 -translate-x-1/2 w-full h-[50vh] z-0 pointer-events-none"
+>
           <defs>
             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="1.5" result="blur" />
@@ -70,7 +70,7 @@ const boatX = useSpring(
           ].map(({ color, offset }, index) => (
             <motion.path
               key={index}
-              d={`M-5,${40 + offset} Q50,${-10 + offset} 105,${40 + offset}`}
+             d={`M-15,${40 + offset} Q50,${-10 + offset} 115,${40 + offset}`}
               fill="none"
               stroke={color}
               strokeWidth="4"
@@ -100,34 +100,36 @@ const boatX = useSpring(
           style={{ height: waterHeight }}
         />
         {/* Fishes inside water */}
-{/* Left Fish */}
-{/* Better Nemo-like Fish */}
-{/* LEFT SIDE FISH (Nemo-style Orange) */}
-{/* LEFT SIDE FISH (Nemo-style Orange) */}
-{/* LEFT SIDE FISH (Nemo-style Orange) */}
-<motion.div
-  className="absolute bottom-[10vh] z-10"
-  style={{
-    scale: 0.7,
-    left: 'calc(50% - 400px)',
-    x: useSpring(
-      useTransform(scrollYProgress, 
-        [0.6, 0.85],  // Sync with boat's scroll range
-        ['-500vh', '0vh']  // Starts off-screen left, comes into view
-      ),
-      { stiffness: 50, damping: 20 }
-    )
-  }}
->
-  <Crab />
-</motion.div>
+        {/* Left Fish */}
+        {/* Better Nemo-like Fish */}
+        {/* LEFT SIDE FISH (Nemo-style Orange) */}
+        {/* LEFT SIDE FISH (Nemo-style Orange) */}
+        {/* LEFT SIDE FISH (Nemo-style Orange) */}
+        <motion.div
+          className="absolute bottom-[10vh] z-30 scale-[0.45] sm:scale-[0.55] md:scale-[0.65] lg:scale-[0.7]"
+          style={{
+            left: "50%",
+            x: useSpring(
+              useTransform(
+                scrollYProgress,
+                [0.6, 0.85],
+                ["-120vw", "0vw"]
+              ),
+              { stiffness: 50, damping: 20 }
+            ),
+          }}
+        >
+          <div className="-translate-x-[35vw] md:-translate-x-[450px]">
+            <Crab />
+          </div>
+        </motion.div>
 
         {/* BOAT */}
         <motion.div
           className="absolute bottom-[4vh] left-1/2 -translate-x-1/2 z-20"
           style={{ x: boatX }}
         >
-          <div className="relative w-[65vh] h-full flex items-end justify-center">
+          <div className="relative w-[65vh] h-full flex items-end justify-center scale-[0.65] md:scale-100 origin-bottom">
             {/* Boat Hull */}
             <div
               className="absolute w-full h-[14vh] bg-yellow-700 rounded-b-full
@@ -265,3 +267,5 @@ const boatX = useSpring(
     </section>
   );
 }
+
+
