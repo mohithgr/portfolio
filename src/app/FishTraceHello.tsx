@@ -16,7 +16,7 @@ function FishIcon() {
   );
 }
 
-export default function FishTraceHello({ onProgressUpdate }) {
+export default function FishTraceHello({ onProgressUpdate }: { onProgressUpdate?: (progress: number) => void }) {
   const pathRef = useRef<SVGPathElement | null>(null);
   const [pathLength, setPathLength] = useState(0);
   const [progress, setProgress] = useState(0);

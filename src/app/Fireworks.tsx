@@ -82,7 +82,7 @@ export default function Fireworks({ active, positions = [] }: Props) {
 
     const launchRocket = (p: FireworkPosition) => {
       const img = p.imageUrl ? new Image() : undefined;
-      if (img) img.src = p.imageUrl;
+      if (img && p.imageUrl) img.src = p.imageUrl;
 
       const x =
         typeof p.x === "string"

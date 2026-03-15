@@ -49,15 +49,30 @@ const itemVariants = {
   },
 };
 
+
+
+
 function Banner() {
   const [curtainComplete, setCurtainComplete] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [sandParticles, setSandParticles] = useState<Array<{size: number, left: number, top: number}>>([]);
 
   const menuItems = [
   { label: "About me", id: "about" },
   { label: "Skills", id: "skills" },
   { label: "Projects", id: "projects" }
 ];
+
+  // Generate sand particles only on client side to avoid hydration mismatch
+  React.useEffect(() => {
+    setSandParticles(
+      Array.from({ length: 30 }, () => ({
+        size: Math.random() * 12 + 3,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+      }))
+    );
+  }, []);
 
   const scrollToSection = (id: string) => {
   const el = document.getElementById(id);
@@ -114,15 +129,15 @@ function Banner() {
       >
         {/* Sand texture */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(30)].map((_, i) => (
+          {sandParticles.map((p, i) => (
             <div 
               key={i}
               className="absolute bg-amber-300/40 rounded-full"
               style={{
-                width: `${Math.random() * 12 + 3}px`,
-                height: `${Math.random() * 12 + 3}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                width: `${p.size}px`,
+                height: `${p.size}px`,
+                left: `${p.left}%`,
+                top: `${p.top}%`,
               }}
             />
           ))}

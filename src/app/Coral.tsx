@@ -1,24 +1,26 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { motion, Variants  } from 'framer-motion';
 import TreasureChest from './TreasureChest';
 import Jellyfish from './Jellyfish';
 
-
-
+type MotionConfig = {
+  duration: number;
+};
 
 // Bigger swaying and vertical drift
 const getCoralMotion = (
   rotateRange: number = 6,
-  yRange: number = 10
+  yRange: number = 10,
+  duration: number
 ): Variants => ({
   initial: { rotate: 0, y: 0 },
   animate: {
     rotate: [-rotateRange, rotateRange, -rotateRange],
     y: [0, -yRange, 0],
     transition: {
-      duration: 7 + Math.random() * 3,
+      duration,
       repeat: Infinity,
       ease: "easeInOut" as const,
     },
@@ -33,6 +35,7 @@ const FloatingAlgae = ({
   bottom = '0vh',
   scale = 1,
   delay = 0,
+  duration = 10,
 }: {
   color?: string;
   right?: string;
@@ -40,8 +43,9 @@ const FloatingAlgae = ({
   bottom?: string;
   scale?: number;
   delay?: number;
+  duration?: number;
 }) => {
-  const motionConfig = useMemo(() => getCoralMotion(3, 4), []);
+  const motionConfig = useMemo(() => getCoralMotion(3, 4, duration), [duration]);
 
   return (
     <motion.div
@@ -70,14 +74,16 @@ const BushCluster = ({
   delay = 0,
   scale = 1,
   bottom = '0px',
+  duration = 10,
 }: {
   color?: string;
   left: string;
   delay?: number;
   scale?: number;
   bottom?: string;
+  duration?: number;
 }) => {
-  const motionConfig = useMemo(() => getCoralMotion(3, 6), []);
+  const motionConfig = useMemo(() => getCoralMotion(3, 6, duration), [duration]);
 
   return (
     <motion.div
@@ -129,6 +135,7 @@ const SpikyGrass = ({
   bottom = '0vh',
   scale = 1,
   delay = 0,
+  duration = 10,
 }: {
   color?: string;
   left?: string;
@@ -136,8 +143,9 @@ const SpikyGrass = ({
   bottom?: string;
   scale?: number;
   delay?: number;
+  duration?: number;
 }) => {
-  const motionConfig = useMemo(() => getCoralMotion(4, 8), []);
+  const motionConfig = useMemo(() => getCoralMotion(4, 8, duration), [duration]);
 
   return (
     <motion.div
@@ -188,7 +196,22 @@ const LightRays = () => (
 
 function Coral() {
 
-  const [chestOpen, setChestOpen] = useState(false)
+  const [chestOpen, setChestOpen] = useState(false);
+  const [durations, setDurations] = useState({
+    algae: 7 + Math.random() * 3,
+    bush: 7 + Math.random() * 3,
+    spiky: 7 + Math.random() * 3,
+  });
+
+  // Generate random durations only on client side
+  useEffect(() => {
+    setDurations({
+      algae: 7 + Math.random() * 3,
+      bush: 7 + Math.random() * 3,
+      spiky: 7 + Math.random() * 3,
+    });
+  }, []);
+
   return (
    <div className="relative min-h-[100svh] md:min-h-screen bg-gradient-to-b from-[#0077be] to-[#001f3f] overflow-hidden">
       {/* Light rays */}
@@ -201,20 +224,20 @@ function Coral() {
     {/* Bushy Underwater Plants */}
 {/* Clustered Underwater Bushes */}
 {/* Bigger spread-out plant clusters */}
-<BushCluster color="#66BB6A" left="5%" delay={0.1} scale={1.2} bottom="5vh" />
-<BushCluster color="#81C784" left="30%" delay={0.3} scale={1.1} bottom="14vh" />
-<BushCluster color="#4CAF50" left="35%" delay={0.5} scale={1.35} bottom="5vh" />
-<BushCluster color="#4CAF50" left="55%" delay={0.5} scale={1.25} bottom="1vh" />
-<BushCluster color="#388E3C" left="78%" delay={0.2} scale={1.15} bottom="7vh" />
+<BushCluster color="#66BB6A" left="5%" delay={0.1} scale={1.2} bottom="5vh" duration={durations.bush} />
+<BushCluster color="#81C784" left="30%" delay={0.3} scale={1.1} bottom="14vh" duration={durations.bush} />
+<BushCluster color="#4CAF50" left="35%" delay={0.5} scale={1.35} bottom="5vh" duration={durations.bush} />
+<BushCluster color="#4CAF50" left="55%" delay={0.5} scale={1.25} bottom="1vh" duration={durations.bush} />
+<BushCluster color="#388E3C" left="78%" delay={0.2} scale={1.15} bottom="7vh" duration={durations.bush} />
 
 
 
 
-<FloatingAlgae left="25%" bottom="2vh" scale={0.9} delay={0.3} />
-<FloatingAlgae right="20%" bottom="4vh" scale={0.9} delay={0.3} />
-<FloatingAlgae right="35%" bottom="5vh" scale={0.9} delay={0.3} />
+<FloatingAlgae left="25%" bottom="2vh" scale={0.9} delay={0.3} duration={durations.algae} />
+<FloatingAlgae right="20%" bottom="4vh" scale={0.9} delay={0.3} duration={durations.algae} />
+<FloatingAlgae right="35%" bottom="5vh" scale={0.9} delay={0.3} duration={durations.algae} />
 
-<SpikyGrass right="15%" bottom="15vh" scale={1} delay={0.2} />
+<SpikyGrass right="15%" bottom="15vh" scale={1} delay={0.2} duration={durations.spiky} />
 
 
 <Jellyfish left="20%" bottom="10vh" scale={0.7} className='md:scale-[0.95]' color="#81D4FA" delay={0.3}/>

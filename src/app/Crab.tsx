@@ -344,29 +344,32 @@ const Crab: React.FC = () => {
           />
         </div>
 
- <div 
+<a
+  href="https://drive.google.com/file/d/1yVUTAiVpMNNk71Stx0gdbUTxydez4f3q/preview"
+  target="_blank"
+  rel="noopener noreferrer"
   className="absolute bg-white rounded-lg shadow-md flex items-center justify-center cursor-pointer hover:scale-105 transition-all duration-300"
   style={{
-    top: '-20vh',
-    left: '-8vh',
-    width: '45vh',
-    height: '15vh',
+    top: "-20vh",
+    left: "-8vh",
+    width: "45vh",
+    height: "15vh",
     zIndex: 10,
-    border: '2px solid #cc0000',
-    animation: 'pulse 2s infinite, glowBorder 3s infinite',
-    boxShadow: '0 0 20px rgba(204, 0, 0, 0.6)'
+    border: "2px solid #cc0000",
+    animation: "pulse 2s infinite, glowBorder 3s infinite",
+    boxShadow: "0 0 20px rgba(204, 0, 0, 0.6)",
   }}
 >
-  <span 
+  <span
     className="text-[#cc0000] font-bold text-[40px] transition-all duration-300 hover:text-[#ff0000]"
     style={{
-      textShadow: '0 0 10px rgba(204, 0, 0, 0.6)',
-      animation: 'glow 2.5s infinite'
+      textShadow: "0 0 10px rgba(204, 0, 0, 0.6)",
+      animation: "glow 2.5s infinite",
     }}
   >
-    Download CV
+    View Resume
   </span>
-</div>
+</a>
       </div>
     </>
   );

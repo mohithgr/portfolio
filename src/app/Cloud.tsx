@@ -1,14 +1,22 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import cloudLeft from "../../public/cloud.png";
 import cloudRight from "../../public/cloud.png";
 import Crab from "./Crab";
 
+type RainDrop = {
+  left: number;
+  duration: number;
+  delay: number;
+};
+
 export default function CloudReveal() {
   const containerRef = useRef(null);
+  const [leftRainDrops, setLeftRainDrops] = useState<RainDrop[]>([]);
+  const [rightRainDrops, setRightRainDrops] = useState<RainDrop[]>([]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -30,8 +38,6 @@ export default function CloudReveal() {
     { stiffness: 50, damping: 20 }
   );
 
-
-
   const boatX = useSpring(
     useTransform(scrollYProgress, [0.6, 0.85], ["-130vh", "0vh"]),
     {
@@ -39,6 +45,24 @@ export default function CloudReveal() {
       damping: 20,
     }
   );
+
+  // Generate rain drops only on client side to avoid hydration mismatch
+  useEffect(() => {
+    setLeftRainDrops(
+      Array.from({ length: 20 }, () => ({
+        left: Math.random() * 100,
+        duration: 2.5 + Math.random() * 1.5,
+        delay: Math.random() * 2,
+      }))
+    );
+    setRightRainDrops(
+      Array.from({ length: 20 }, () => ({
+        left: Math.random() * 100,
+        duration: 2.5 + Math.random() * 1.5,
+        delay: Math.random() * 2,
+      }))
+    );
+  }, []);
 
   return (
     <section ref={containerRef} className="relative h-[800vh]">
@@ -208,16 +232,16 @@ export default function CloudReveal() {
         >
           <Image src={cloudLeft} alt="cloud left" className="w-full" priority />
           <div className="absolute top-[60%] left-0 w-full h-[60%] pointer-events-none z-[-1]">
-            {Array.from({ length: 20 }).map((_, i) => (
+            {leftRainDrops.map((drop, i) => (
               <motion.div
                 key={`left-drop-${i}`}
                 className="absolute w-[6px] h-[24px] border border-blue-400 bg-white rounded-full opacity-80"
-                style={{ left: `${Math.random() * 100}%` }}
+                style={{ left: `${drop.left}%` }}
                 animate={{ y: ["0%", "100vh"], opacity: [1, 0.3] }}
                 transition={{
-                  duration: 2.5 + Math.random() * 1.5,
+                  duration: drop.duration,
                   repeat: Infinity,
-                  delay: Math.random() * 2,
+                  delay: drop.delay,
                 }}
               />
             ))}
@@ -236,16 +260,16 @@ export default function CloudReveal() {
             priority
           />
           <div className="absolute top-[60%] left-0 w-full h-[60%] pointer-events-none z-[-1]">
-            {Array.from({ length: 20 }).map((_, i) => (
+            {rightRainDrops.map((drop, i) => (
               <motion.div
                 key={`right-drop-${i}`}
                 className="absolute w-[6px] h-[24px] border border-blue-400 bg-white rounded-full opacity-80"
-                style={{ left: `${Math.random() * 100}%` }}
+                style={{ left: `${drop.left}%` }}
                 animate={{ y: ["0%", "100vh"], opacity: [1, 0.3] }}
                 transition={{
-                  duration: 2.5 + Math.random() * 1.5,
+                  duration: drop.duration,
                   repeat: Infinity,
-                  delay: Math.random() * 2,
+                  delay: drop.delay,
                 }}
               />
             ))}
