@@ -95,11 +95,13 @@ export default function FishTraceHello({ onProgressUpdate }) {
         </g>
       </svg>
       <p 
-  className={`max-w-[90%] sm:max-w-[600px] text-center mt-4 transition-opacity duration-1000 ease-in-out ${
+  className={`max-w-[90%] sm:max-w-[600px] text-center transition-opacity duration-1000 ease-in-out ${
   progress >= 1 ? 'opacity-100' : 'opacity-0'
 }`}
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, distinctio nihil sapiente accusamus praesentium explicabo obcaecati placeat, repellendus mollitia assumenda optio vel! Molestias vitae mollitia exercitationem, harum laudantium eius nobis.
+        <span className="text-2xl md:text-3xl font-bold">Hey, I&apos;m Mohith — a Software Engineer & UNSW Master&apos;s student.</span><br />
+        <span className="text-lg text-white/80">I build high-performance web and mobile apps using React, Next.js, and React Native.</span>
+      <span className="block text-sm text-white/60">From global tech summits to AR/VR experiments, I love turning complex ideas into sleek, scalable digital experiences..</span>
       </p>
     </div>
   );

@@ -153,16 +153,16 @@ export default function CloudReveal() {
             <div className="absolute bottom-[160px] left-1/2 -translate-x-1/2 z-20 flex flex-col items-start space-y-2">
               {[
                 {
-                  label: "Full Name",
+                  label: "Name",
                   value: "Mohith G R",
                 },
                 {
-                  label: "Job Role",
-                  value: "Software Engineer",
+                  label: "Designation",
+                  value: "Master of IT at UNSW",
                 },
                 {
                   label: "Phone",
-                  value: "9606504880",
+                  value: "+61 408 617 172",
                 },
                 {
                   label: "Email",
@@ -254,13 +254,11 @@ export default function CloudReveal() {
 
         {/* Reveal Text */}
         <div className="z-0 text-center text-black mt-[20vh]">
-          <h2 className="text-4xl font-bold">Let me introduce myself</h2>
-          <p className="mt-2 text-lg max-w-[400px]">
-            Experienced Developer proficient in advanced web development
-            technologies, including HTML 5, CSS 3, JavaScript, Tailwind CSS,
-            Next.js, and React.js. I craft user interfaces, translate site
-            designs and wireframes into high-quality code ensuring responsive
-            designs in line with the latest technology standards.
+          <h2 className="text-2xl md:text-4xl font-bold">Let me introduce myself</h2>
+          <p className="mt-2 text-sm md:text-lg max-w-[400px]">
+            I’m a developer who cares as much about the user experience as I do about the underlying architecture. With a background in both Software Engineering and Project Management, I know how to build complex features while keeping an eye on the bigger picture and the deadline.
+
+My recent work ranges from building motion-rich web platforms for 5,000+ users to experimenting with AR/VR for education. I’m currently at UNSW Sydney, looking for my next role in the local tech scene where I can put my Technical and leadership experience to work.
           </p>
         </div>
       </div>

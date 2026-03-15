@@ -82,9 +82,9 @@ import React, { useEffect, useState } from "react";
 import JellyCard from "./JellyCard";
 
 const jellyData = [
-  { title: "Alpha", description: "Lorem ipsum dolor sit amet..." },
-  { title: "Beta", description: "Sed ut perspiciatis unde omnis..." },
-  { title: "Gamma", description: "Consectetur adipiscing elit..." },
+  { title: "The Summit Project", description: "Built a motion-driven web experience for 5k+ attendees, scaling UI architectures to accelerate global marketing objectives" },
+  { title: "The E-commerce Project", description: "Orchestrated the end-to-end delivery of a high-reliability retail platform within a 30-day timeline." },
+  { title: "The AGV Project", description: "Engineered web features and interactive storytelling for an AGV rollout, translating complex hardware into a digital experience." },
 ];
 
 const ConveyorBelt = () => {

@@ -4,9 +4,13 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence  } from "framer-motion"
 import Pebble from './Pebble'
 
-const TreasureChest = () => {
+type Props = {
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-  const [isOpen, setIsOpen] = useState(false)
+const TreasureChest = ({ isOpen, setIsOpen }: Props) => {
+
   const [isMobile, setIsMobile] = useState(false)
   const [showSkills, setShowSkills] = useState(false)
 
@@ -30,12 +34,12 @@ const toggleChest = () => {
   const pebblesData = [
     { label: 'Next.js', x: '-40vh', y: '-40vh', scale: 1 },
     { label: 'React.js', x: '-60vh', y: '-50vh', scale: 0.9 },
-    { label: 'Tailwind CSS', x: '-60vh', y: '-20vh', scale: 1.1 },
-    { label: 'Shadcn/ui', x: '20vh', y: '-40vh', scale: 0.95 },
-    { label: 'Gluestack', x: '60vh', y: '-80vh', scale: 1.05 },
-    { label: 'Accessibility', x: '90vh', y: '-60vh', scale: 1.05 },
-    { label: 'Responsive design', x: '60vh', y: '-20vh', scale: 1.05 },
-    { label: 'CMS - Strapi', x: '100vh', y: '-35vh', scale: 1.05 },
+    { label: 'React Native', x: '-60vh', y: '-20vh', scale: 1.1 },
+    { label: 'Gluestack', x: '20vh', y: '-40vh', scale: 0.95 },
+    { label: 'Tailwind CSS', x: '60vh', y: '-80vh', scale: 1.05 },
+    { label: 'W3C Standards', x: '90vh', y: '-60vh', scale: 1.05 },
+    { label: 'Framer Motion', x: '60vh', y: '-20vh', scale: 1.05 },
+    { label: 'Strapi CMS', x: '100vh', y: '-35vh', scale: 1.05 },
   ]
 
   return (

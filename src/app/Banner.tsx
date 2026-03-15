@@ -53,6 +53,22 @@ function Banner() {
   const [curtainComplete, setCurtainComplete] = useState(false);
   const [progress, setProgress] = useState(0);
 
+  const menuItems = [
+  { label: "About me", id: "about" },
+  { label: "Skills", id: "skills" },
+  { label: "Projects", id: "projects" }
+];
+
+  const scrollToSection = (id: string) => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+};
+
   return (
     <div className="relative min-h-screen bg-[#00BFFF] overflow-hidden flex items-center justify-center">
       {/* Curtain */}
@@ -416,14 +432,18 @@ function Banner() {
         >
           {/* Left Side Text */}
           <div className="flex flex-col gap-4 items-center md:items-start text-center md:text-left grow-4">
-            {['Hello', 'Contact us', 'Projects'].map((text) => (
-              <motion.div
-                key={text}
-                variants={itemVariants}
-                className={`bg-black px-5 sm:px-6 py-2 sm:py-3 w-full max-w-[180px] sm:max-w-[200px] ${styles.choppedBox}`}
-              >
-                <p className={`text-white text-lg whitespace-nowrap ${styles.bungee}`}>{text}</p>
-              </motion.div>
+              {menuItems.map((item) => (
+  <motion.div
+    key={item.label}
+    variants={itemVariants}
+    onClick={() => scrollToSection(item.id)}
+    className={`bg-black px-5 sm:px-6 py-2 sm:py-3 w-full max-w-[180px] sm:max-w-[200px] cursor-pointer ${styles.choppedBox}`}
+  >
+    <p className={`text-white text-lg whitespace-nowrap ${styles.bungee}`}>
+      {item.label}
+    </p>
+  </motion.div>
+
             ))}
           </div>
 

@@ -84,7 +84,7 @@ const desktopPositions = [
   x: "65%",
   y: "35%",
   angle: (-45 * Math.PI) / 180,
-  text: "Email Me At mohithgr@gmail.com",
+  text: "Email: mohithgr@gmail.com",
   url: "mailto:mohithgr@gmail.com",
 },
 
@@ -92,8 +92,8 @@ const desktopPositions = [
   x: "30%",
   y: "35%",
   angle: (-120 * Math.PI) / 180,
-  text: "Call Me At +91 - 9606504880",
-  url: "tel:+919606504880",
+   text: "Phone: +61- 408 617 172",
+  url: "tel:+61408617172",
 },
 
 {
@@ -101,7 +101,7 @@ const desktopPositions = [
   y: "35%",
   angle: (-90 * Math.PI) / 180,
   imageUrl: "/linkedin.png",
-  url: "https://www.linkedin.com/in/shivprasad-karekar",
+  url: "https://www.linkedin.com/in/mohith-gr/",
 },
 
 
@@ -125,7 +125,7 @@ const mobilePositions = [
   x: "50%",
   y: "40%",
   angle: (-90 * Math.PI) / 180,
-  text: "Email Me At mohithgr@gmail.com",
+  text: "Email: mohithgr@gmail.com",
   url: "mailto:mohithgr@gmail.com",
 },
 
@@ -133,8 +133,8 @@ const mobilePositions = [
   x: "50%",
   y: "45%",
   angle: (-90 * Math.PI) / 180,
-  text: "Call Me At +91 - 9606504880",
-  url: "tel:+919606504880",
+  text: "Phone: +61- 408617172",
+  url: "tel:+61408617172",
 },
 
 {
@@ -142,7 +142,7 @@ const mobilePositions = [
   y: "50%",
   angle: (-90 * Math.PI) / 180,
   imageUrl: "/linkedin.png",
-  url: "https://www.linkedin.com/in/shivprasad-karekar",
+  url: "https://www.linkedin.com/in/mohith-gr/",
 },
 
 

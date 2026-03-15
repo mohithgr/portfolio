@@ -1,9 +1,12 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion, Variants  } from 'framer-motion';
 import TreasureChest from './TreasureChest';
 import Jellyfish from './Jellyfish';
+
+
+
 
 // Bigger swaying and vertical drift
 const getCoralMotion = (
@@ -184,6 +187,8 @@ const LightRays = () => (
 );
 
 function Coral() {
+
+  const [chestOpen, setChestOpen] = useState(false)
   return (
    <div className="relative min-h-[100svh] md:min-h-screen bg-gradient-to-b from-[#0077be] to-[#001f3f] overflow-hidden">
       {/* Light rays */}
@@ -218,16 +223,17 @@ function Coral() {
 
 
 <div className="absolute bottom-[10vh] left-1/2 -translate-x-1/2 z-10">
- <TreasureChest />
+ <TreasureChest isOpen={chestOpen} setIsOpen={setChestOpen} />
  </div>
 
 
       {/* Section Content */}
       <div className="relative z-30 text-center pt-[8vh] md:pt-[18vh] px-4 text-white">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">Coral Kingdom</h2>
-        <p className="text-lg text-white/80 max-w-xl mx-auto">
-          A vibrant reef alive with motion and marine beauty.
-        </p>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">Skills</h2>
+        <motion.p animate={{ opacity: chestOpen ? 0 : 1 }}
+  transition={{ duration: 0.4 }} className="text-lg text-white/80 max-w-xl mx-auto">
+          A versatile technical toolkit focused on building seamless user experiences across web and mobile. I combine modern frameworks with a strong foundation in accessibility and performance-driven architecture.
+        </motion.p>
       </div>
     </div>
   );

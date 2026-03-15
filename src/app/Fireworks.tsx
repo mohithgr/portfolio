@@ -232,13 +232,36 @@ export default function Fireworks({ active, positions = [] }: Props) {
       });
     };
 
+    const mouseMove = (e: MouseEvent) => {
+  const rect = canvas.getBoundingClientRect();
+
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  let hovering = false;
+
+  clickable.current.forEach((a) => {
+    if (x > a.x && x < a.x + a.width && y > a.y && y < a.y + a.height) {
+      hovering = true;
+    }
+  });
+
+  canvas.style.cursor = hovering ? "pointer" : "default";
+};
+
     canvas.addEventListener("click", click);
+    canvas.addEventListener("mousemove", mouseMove);
+    
 
     return () => {
       canvas.removeEventListener("click", click);
+      canvas.removeEventListener("mousemove", mouseMove);
       window.removeEventListener("resize", resizeCanvas);
     };
   }, [active, positions]);
+
+
+  
 
   return (
     <canvas
