@@ -1,7 +1,10 @@
 import React from 'react';
 
-const BeachTableUmbrella = ({ position }) => {
-  return (
+type BeachTableUmbrellaProps = {
+  position: string;
+};
+
+const BeachTableUmbrella = ({ position }: BeachTableUmbrellaProps) => {  return (
     <div 
       className={`absolute ${position} bottom-40 flex flex-col items-center z-40`}
       style={{ transform: 'rotate(-12deg)' }}

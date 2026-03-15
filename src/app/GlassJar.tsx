@@ -206,8 +206,11 @@
 
 'use client'
 import { motion } from "framer-motion";
+type showProp = {
+  show: boolean;
+}
 
-export function GlassJar({ show }) {
+export function GlassJar({ show }: showProp) {
   return (
     <motion.div
       className="absolute bottom-32 left-1/2 -translate-x-1/2 z-30"

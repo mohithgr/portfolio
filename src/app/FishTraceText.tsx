@@ -98,7 +98,7 @@ function FishIcon() {
 }
 
 export default function FishTraceText() {
-  const pathRef = useRef(null);
+  const pathRef = useRef<SVGPathElement | null>(null);
   const [pathLength, setPathLength] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -109,20 +109,25 @@ export default function FishTraceText() {
     }
   }, []);
 
-  useEffect(() => {
-    let start;
-    const duration = 12000; // 12 seconds for drawing (slower)
-    function animate(time) {
-      if (!start) start = time;
-      const elapsed = time - start;
-      const percent = Math.min(elapsed / duration, 1);
-      setProgress(percent);
-      if (elapsed < duration) {
-        requestAnimationFrame(animate);
-      }
+ useEffect(() => {
+  let start: number | null = null;
+  const duration = 12000;
+
+  function animate(time: number) {
+    if (start === null) start = time;
+
+    const elapsed = time - start;
+    const percent = Math.min(elapsed / duration, 1);
+
+    setProgress(percent);
+
+    if (elapsed < duration) {
+      requestAnimationFrame(animate);
     }
-    requestAnimationFrame(animate);
-  }, [pathLength]);
+  }
+
+  requestAnimationFrame(animate);
+}, [pathLength]);
 
   // Calculate fish position and rotation on the path
   let fishPos = { x: 0, y: 0 };

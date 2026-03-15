@@ -4,8 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 
 const LetterTracingAnimation = () => {
-  const [pathData, setPathData] = useState([]);
-  const svgRef = useRef(null);
+ const [pathData, setPathData] = useState<string[]>([]);
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const controls = useAnimation();
   const [lettersVisible, setLettersVisible] = useState(false);
 
@@ -105,13 +105,17 @@ const LetterTracingAnimation = () => {
             d="M0,0 C5,-5 5,5 0,0 C-5,5 -5,-5 0,0 Z"
             fill="#FF6B6B"
             transform="translate(0,0) rotate(0)"
-            style={{
-              motionPath: {
-                path: "#text-path",
-                align: "#text-path",
-                offsetPath: "path('" + letterPaths.join(' ') + "')",
-              }
-            }}
+           style={{
+  offsetPath: `path("${letterPaths.join(" ")}")`,
+  offsetDistance: "0%",
+} as React.CSSProperties}
+animate={{
+  offsetDistance: ["0%", "100%"]
+}}
+transition={{
+  duration: 3,
+  ease: "linear"
+}}
           />
         </motion.g>
       </svg>
