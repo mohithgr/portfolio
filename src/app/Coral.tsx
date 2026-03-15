@@ -1,12 +1,18 @@
 'use client';
 
-import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import React, { useMemo, useState } from 'react';
+import { motion, Variants  } from 'framer-motion';
 import TreasureChest from './TreasureChest';
 import Jellyfish from './Jellyfish';
 
+
+
+
 // Bigger swaying and vertical drift
-const getCoralMotion = (rotateRange: number = 6, yRange: number = 10) => ({
+const getCoralMotion = (
+  rotateRange: number = 6,
+  yRange: number = 10
+): Variants => ({
   initial: { rotate: 0, y: 0 },
   animate: {
     rotate: [-rotateRange, rotateRange, -rotateRange],
@@ -14,7 +20,7 @@ const getCoralMotion = (rotateRange: number = 6, yRange: number = 10) => ({
     transition: {
       duration: 7 + Math.random() * 3,
       repeat: Infinity,
-      ease: 'easeInOut',
+      ease: "easeInOut" as const,
     },
   },
 });
@@ -39,7 +45,7 @@ const FloatingAlgae = ({
 
   return (
     <motion.div
-      className="absolute z-20"
+      className="absolute z-20  pointer-events-none"
       style={{ right,left, bottom, transform: `scale(${scale})` }}
       variants={motionConfig}
       initial="initial"
@@ -75,7 +81,7 @@ const BushCluster = ({
 
   return (
     <motion.div
-      className="absolute z-20"
+      className="absolute z-20  pointer-events-none"
       style={{
         left,
         bottom,
@@ -135,7 +141,7 @@ const SpikyGrass = ({
 
   return (
     <motion.div
-      className="absolute z-20"
+      className="absolute z-20  pointer-events-none"
       style={{ left,right, bottom, transform: `scale(${scale})` }}
       variants={motionConfig}
       initial="initial"
@@ -181,13 +187,15 @@ const LightRays = () => (
 );
 
 function Coral() {
+
+  const [chestOpen, setChestOpen] = useState(false)
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-[#0077be] to-[#001f3f] overflow-hidden">
+   <div className="relative min-h-[100svh] md:min-h-screen bg-gradient-to-b from-[#0077be] to-[#001f3f] overflow-hidden">
       {/* Light rays */}
       <LightRays />
 
       {/* Seabed */}
-      <div className="absolute bottom-0 w-full h-44 bg-[#053d4e] rounded-t-[80%] z-10" />
+      <div className="absolute bottom-0 w-full h-32 md:h-44 bg-[#053d4e] rounded-t-[80%] z-10" />
 
       {/* Colorful Coral Blobs */}
     {/* Bushy Underwater Plants */}
@@ -202,35 +210,33 @@ function Coral() {
 
 
 
-<FloatingAlgae color="#FF7043" left="50vh" bottom="2vh" scale={0.9} delay={0.3} />
-<FloatingAlgae color="#FF7043" right="75vh" bottom="4vh" scale={0.9} delay={0.3} />
-<FloatingAlgae color="#FF7043" right="50vh" bottom="5vh" scale={0.9} delay={0.3} />
+<FloatingAlgae left="25%" bottom="2vh" scale={0.9} delay={0.3} />
+<FloatingAlgae right="20%" bottom="4vh" scale={0.9} delay={0.3} />
+<FloatingAlgae right="35%" bottom="5vh" scale={0.9} delay={0.3} />
 
-<SpikyGrass color="#43A047" right="40vh" bottom="15vh" scale={1} delay={0.2} />
+<SpikyGrass right="15%" bottom="15vh" scale={1} delay={0.2} />
 
 
-<Jellyfish left="20%" bottom="10vh" scale={0.95} color="#81D4FA" delay={0.3}/>
-<Jellyfish left="75%" bottom="2vh" scale={1.1} color="#CE93D8" reverse  delay={0.6}/>
+<Jellyfish left="20%" bottom="10vh" scale={0.7} className='md:scale-[0.95]' color="#81D4FA" delay={0.3}/>
+<Jellyfish left="75%" bottom="2vh" scale={0.8} className='md:scale-[1.1]' color="#CE93D8" reverse  delay={0.6}/>
 
 
 
 <div className="absolute bottom-[10vh] left-1/2 -translate-x-1/2 z-10">
- <TreasureChest />
+ <TreasureChest isOpen={chestOpen} setIsOpen={setChestOpen} />
  </div>
 
 
       {/* Section Content */}
-      <div className="relative z-30 text-center pt-36 px-4 text-white">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">Coral Kingdom</h2>
-        <p className="text-lg text-white/80 max-w-xl mx-auto">
-          A vibrant reef alive with motion and marine beauty.
-        </p>
+      <div className="relative z-30 text-center pt-[8vh] md:pt-[18vh] px-4 text-white">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">Skills</h2>
+        <motion.p animate={{ opacity: chestOpen ? 0 : 1 }}
+  transition={{ duration: 0.4 }} className="text-lg text-white/80 max-w-xl mx-auto">
+          A versatile technical toolkit focused on building seamless user experiences across web and mobile. I combine modern frameworks with a strong foundation in accessibility and performance-driven architecture.
+        </motion.p>
       </div>
     </div>
   );
 }
 
 export default Coral;
-
-
-

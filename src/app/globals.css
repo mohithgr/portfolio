@@ -62,4 +62,7 @@ body {
   animation: waveMotion4 6s linear infinite;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 

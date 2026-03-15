@@ -8,9 +8,15 @@ export default function Home() {
   return (
 <div>
   <Banner/>
+  <section id="about">
   <CloudRevealSection/>
+  </section>
+  <section id="skills">
   <Coral/>
+  </section>
+  <section id="projects">
   <Lighthouse/>
+  </section>
   <BeachScene/>
 </div>
   );

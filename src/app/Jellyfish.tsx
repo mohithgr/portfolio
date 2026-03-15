@@ -269,6 +269,7 @@ const Jellyfish = ({
   color = '#FFD1DC',
   delay = 0,
   reverse = false,
+  className = '',
 }: {
   left?: string;
   bottom?: string;
@@ -276,6 +277,7 @@ const Jellyfish = ({
   color?: string;
   delay?: number;
   reverse?: boolean;
+  className?: string;
 }) => {
   // Cursor influence
   const cursorX = useMotionValue(0);
