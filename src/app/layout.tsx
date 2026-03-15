@@ -34,6 +34,12 @@ export const metadata = {
     ],
     type: "website",
   },
+  twitter: {
+  card: "summary_large_image",
+  title: "Mohith G R Portfolio",
+  description: "Software Engineer | React | Next.js",
+  images: ["/og.png"],
+},
 };
 
 
