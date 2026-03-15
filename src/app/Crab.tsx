@@ -69,7 +69,7 @@ const Crab: React.FC = () => {
   className="absolute top-[56%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-[0.5]"
   style={{ animation: "lefttoright 11400ms infinite" }}
 >
-        <div className="relative w-[240px] h-[150px] bg-[#cc0000] rounded-[50%]" />
+        <div className="relative w-60 h-37.5 bg-[#cc0000] rounded-[50%]" />
 
         {/* Body shadow */}
         <div
@@ -245,7 +245,7 @@ const Crab: React.FC = () => {
 
         {/* Left Arm */}
         <div
-          className="absolute border-[8px] border-red-700 rounded-[50%/120px_120px_10px_10px]"
+          className="absolute border-8 border-red-700 rounded-[50%/120px_120px_10px_10px]"
           style={{
             width: 120,
             height: 100,
@@ -258,7 +258,7 @@ const Crab: React.FC = () => {
 
         {/* Right Arm */}
         <div
-          className="absolute border-[8px] border-red-700 rounded-[50%/120px_120px_10px_10px]"
+          className="absolute border-8 border-red-700 rounded-[50%/120px_120px_10px_10px]"
           style={{
             width: 120,
             height: 100,
